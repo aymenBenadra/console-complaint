@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Solvable.interface.php';
+require_once '../interface/Solvable.interface.php';
 
 abstract class Reclamation implements Solvable
 {
@@ -11,7 +11,7 @@ abstract class Reclamation implements Solvable
     protected $solved;
     protected static $ids = [];
 
-    public function __construct($problem, $description, $priority = 2)
+    public function __construct($problem, $description, $priority)
     {
         $this->id = self::generateId();
         $this->problem = $problem;

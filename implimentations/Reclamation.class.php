@@ -7,19 +7,26 @@ abstract class Reclamation implements Solvable
     protected $id;
     protected $problem;
     protected $description;
+    protected $priority = 2; // default priority is 2 is standard, 1 is low, 3 is high
     protected $solved;
     protected static $ids = [];
 
-    public function __construct($problem, $description)
+    public function __construct($problem, $description, $priority = 2)
     {
         $this->id = self::generateId();
         $this->problem = $problem;
         $this->description = $description;
+        $this->priority = $priority;
         $this->solved = false;
         self::$ids[] = $this->id;
     }
 
-    protected static function generateId(): int
+    /**
+     * generates a unique id for each reclamation
+     *
+     * @return int
+     */
+    final protected static function generateId(): int
     {
         return count(self::$ids) + 1;
     }
@@ -30,13 +37,8 @@ abstract class Reclamation implements Solvable
         echo "La réclamation a été résolue";
     }
 
-    public static function count(): int
+    final public static function count(): int
     {
         return count(self::$ids);
-    }
-
-    public function __toString(): string
-    {
-        return "Reclamation: " . $this->id . "\n\tProblem: " . $this->problem . "\n\tDescription: " . $this->description . "\n\tState: " . ($this->solved ? "Solved" : "Not Solved");
     }
 }
